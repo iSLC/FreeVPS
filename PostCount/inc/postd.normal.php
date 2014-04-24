@@ -3,7 +3,7 @@
 	// Get the minimum required posts to enter the giveaway.
 	$Required = _Cfg('required_vps_posts', 30);
 	// Create a temporary variable to hold a rounded version of the current posts number.
-	$PostCount = round($User['postcount'], 2);
+	$PostCount = round($User['total_posts'], 2);
 	// Generate a table of post numbers to check for when displaying any messages.
 	$Msg = array(
 		round(($Required / 4), 2),
@@ -22,7 +22,7 @@
 	);
 	// Create a variable to mark the completed goals for later styling.
 	$PostPercFill = array(FALSE, FALSE, FALSE, FALSE);
-	var_dump($User);
+
 	// How much posts does the user needs in order to fill the minimum requirement.
 	$Needs = ($PostCount < $Required) ? ($Required - $PostCount) : 0;
 	// How many extra posts did the user made over the minimum requirement.

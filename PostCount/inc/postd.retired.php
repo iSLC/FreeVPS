@@ -108,7 +108,6 @@
 						round( (100 - ($Percent[0] + $Percent[1] + $Percent[2] + $Percent[3]) ), 2) : round(0, 2);
 		$PercVal[4] = ($PostCount > $Msg[3]) ? $PostCount : '';
 	}
-	//var_dump($Percent);
 ?>
 	<div class="progress progress-striped active">
 	  <div class="progress-bar progress-bar-danger" style="width: <?php echo $Percent[0]; ?>%">

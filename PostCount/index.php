@@ -27,8 +27,6 @@ defined('BOOTSTRAP_THEME_CSS') ? NULL : define('BOOTSTRAP_THEME_CSS', '//netdna.
 
 // Get the User Details and store them in a global variable named User.
 $User = GetPostCount(USER_ID);
-//$User = GetUserInfo(USER_ID);
-//$User['postcount'] = 21;
 
 // Find the user type.
 if (!defined('USER_TYPE')) {

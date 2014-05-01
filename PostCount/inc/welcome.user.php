@@ -1,3 +1,4 @@
+<?php if(!defined('POST_COUNT')) exit('Direct access is denied!'); ?>
 <div class="page-header">
     <h1>Welcome <?php
             echo '<span class=""';

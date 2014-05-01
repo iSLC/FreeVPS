@@ -77,11 +77,76 @@ function cURL_SetupHandle($CH, array $Opt = array())
         curl_setopt($CH, CURLOPT_FOLLOWLOCATION, TRUE);
         curl_setopt($CH, CURLOPT_HEADER, FALSE);
         curl_setopt($CH, CURLOPT_USERAGENT, USER_AGENT);
+        // Send any existing cookies allong with the requests.
+        if (defined('DO_AUTH') && DO_AUTH === TRUE) {
+            curl_setopt($CH, CURLOPT_COOKIEFILE, ROOT._Cfg('cookie_jar_file', '.cookie'));
+        }
     }
-    // Apply custom user options
+    // Apply custom user options.
     if (!empty($Opt)) {
         curl_setopt_array($CH, $Opt);
     }
+}
+
+// Function to authenticate with the given username and password.
+function cURL_Authenticate($TimeStamp) {
+    // Calculate the time difference since the last authentication.
+    $DaysDiff = ((((time() - $TimeStamp) / 60) / 60) / 24);
+    $ReauthDays = _Cfg('days_to_auth', 30);
+    // Get the cookie jar data to check wheather the jar is empty.
+    $JarData = file_get_contents (ROOT._Cfg('cookie_jar_file', '.cookie'));
+    // Check wheather we need to re-authenticate.
+    if ($DaysDiff < $ReauthDays && !empty($JarData)) return $TimeStamp;
+
+    // Grab the username and password for the authentication process.
+    $Username = _Cfg('auth_username', '');
+    $Password = _Cfg('auth_pasword', '');
+    // Validate the retrieved username and pasword to see if any data was specified.
+    if (empty($Username)) _Kill('ERROR: Invalid username specified for the authentification process.');
+    if (empty($Password)) _Kill('ERROR: Invalid password specified for the authentification process.');
+
+    // Initialize the cURL data to begin the authentication process.
+    $CH = curl_init();
+    // Check the handle for validity
+    if (!$CH) {
+        _Kill('ERROR: Unable to create the cURL handle for the authentification process.');
+    } else {
+        curl_setopt($CH, CURLOPT_URL, SITE_ROOT_URL.'/member.php');
+        curl_setopt($CH, CURLOPT_POST, 1);
+        
+        // Create the authentification data structure.
+        $AuthData = array(
+            'action'        => 'do_login',
+            'url'           => SITE_ROOT_URL,
+            'quick_login'   => '1',
+            'username'      => $Username,
+            'password'      => $Password,
+            'submit'        => 'Login',
+            'remember'      => 'yes'
+        );
+        // Isert the post authentication data required by myBB.
+        curl_setopt($CH, CURLOPT_POSTFIELDS, http_build_query($AuthData));
+
+        curl_setopt($CH, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($CH, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($CH, CURLOPT_BINARYTRANSFER, TRUE);
+        curl_setopt($CH, CURLOPT_FOLLOWLOCATION, TRUE);
+        curl_setopt($CH, CURLOPT_HEADER, TRUE);
+
+        // Empty the cookie jar of any existing data.
+        file_put_contents(ROOT._Cfg('cookie_jar_file', '.cookie'), '');
+
+        // Tell cURL about the cookie jar file.
+        curl_setopt($CH, CURLOPT_COOKIEJAR, ROOT._Cfg('cookie_jar_file', '.cookie'));
+    }
+
+    // Time to authenticate.
+    $Output = curl_exec($CH);
+
+    // Clean after our self.
+    curl_close($CH);
+    // Return the currrent time.
+    return time();
 }
 
 // Get the user name of the specified user id.

@@ -1,3 +1,4 @@
+<?php if(!defined('POST_COUNT')) exit('Direct access is denied!'); ?>
 <div class="col-lg-12">
 <?php
 	// Get the monthly required posts.

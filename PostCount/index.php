@@ -25,6 +25,27 @@ defined('BOOTSTRAP_JS') ? NULL : define('BOOTSTRAP_JS', '//netdna.bootstrapcdn.c
 defined('BOOTSTRAP_CSS') ? NULL : define('BOOTSTRAP_CSS', '//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css');
 defined('BOOTSTRAP_THEME_CSS') ? NULL : define('BOOTSTRAP_THEME_CSS', '//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css');
 
+defined('DO_AUTH') ? NULL : define('DO_AUTH', _Cfg('auth_enabled', TRUE));
+defined('DO_VIEWS') ? NULL : define('DO_VIEWS', _Cfg('views_enabled', TRUE));
+
+if (defined('DO_AUTH') && DO_AUTH === TRUE) {
+    // Grab the last authentication time from the .auth file.
+    $LastAuth = file_get_contents (ROOT._Cfg('last_auth_file', '.auth'));
+
+    // Validate the value retrieved from the .auth file.
+    if (!is_numeric($LastAuth)) {
+        // Probably a new installation and we must authenticate now.
+        $LastAuth = 0;
+    } else {
+        $LastAuth = intval($LastAuth);
+    }
+    // Check wheather we need to authenticate again.
+    $LastAuth = cURL_Authenticate($LastAuth);
+
+    // Store back the last authentication timestamp to the .auth file.
+    file_put_contents(ROOT._Cfg('last_auth_file', '.auth'), strval($LastAuth));
+}
+
 // Get the User Details and store them in a global variable named User.
 $User = GetPostCount(USER_ID);
 
@@ -47,6 +68,21 @@ if (!defined('USER_TYPE')) {
     } else {
         define('USER_TYPE', 'unknown');
     }
+}
+
+if (defined('DO_VIEWS') && DO_VIEWS === TRUE) {
+    // Grab the current views from the .views file.
+    $TotalViews = file_get_contents (ROOT._Cfg('total_views_file', '.views'));
+
+    // Validate the value retrieved from the .views file.
+    if (!is_numeric($TotalViews)) {
+        $TotalViews = 1;
+    } else {
+        $TotalViews = intval($TotalViews);
+        $TotalViews += 1;
+    }
+    // Store back the ammount of views to the .views file.
+    file_put_contents(ROOT._Cfg('total_views_file', '.views'), strval($TotalViews));
 }
 
 ?>
@@ -108,6 +144,15 @@ if (!defined('USER_TYPE')) {
     }
 ?>
         </div>
+<?php
+    if (defined('DO_VIEWS') && DO_VIEWS === TRUE) {
+        echo '<div class="row">';
+            echo '<div class="col-lg-12">';
+                echo '<div class="well well-lg text-primary"><center>This page was viewed <strong>'.$TotalViews.'</strong> times.</center></div>';
+            echo '</div>';
+        echo '</div>';
+    }
+?>
     </div>
   </body>
 </html>

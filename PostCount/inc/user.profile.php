@@ -1,3 +1,4 @@
+<?php if(!defined('POST_COUNT')) exit('Direct access is denied!'); ?>
 <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
     <?php
             echo '<div class="panel panel-default"';

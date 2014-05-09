@@ -70,7 +70,7 @@
 		echo '<div class="alert alert-success"><strong>Unstoppable!</strong> You definitely need some medical attention or something. You have way more than enough posts to enter the Giveaway and get a VPS.</div>';
 		$PostPercFill = array(TRUE, TRUE, TRUE, TRUE);
 	} else {
-		echo '<div class="alert alert-success"><strong>Unbelievable!</strong> There\'s just no way to describe the mental sickness inside you. You have way more than enough posts to continue using the VPS for the next month.</div>';
+		echo '<div class="alert alert-success"><strong>Unbelievable!</strong> There\'s just no way to describe the mental sickness inside you. You have way more than enough posts to enter the Giveaway and definitely get a VPS.</div>';
 		$PostPercFill = array(TRUE, TRUE, TRUE, TRUE);
 	}
 ?>
@@ -200,7 +200,7 @@
 		echo '<div class="alert alert-success"><strong>Unstoppable!</strong> You definitely need some medical attention or something. You have way more than enough score to enter the Giveaway and get a VPS.</div>';
 		$ScorePercFill = array(TRUE, TRUE, TRUE, TRUE);
 	} else {
-		echo '<div class="alert alert-success"><strong>Unbelievable!</strong> There\'s just no way to describe the mental sickness inside you. You have way more than enough score to continue using the VPS for the next month.</div>';
+		echo '<div class="alert alert-success"><strong>Unbelievable!</strong> There\'s just no way to describe the mental sickness inside you. You have way more than enough posts to enter the Giveaway and definitely get a VPS.</div>';
 		$ScorePercFill = array(TRUE, TRUE, TRUE, TRUE);
 	}
 ?>

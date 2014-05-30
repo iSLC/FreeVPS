@@ -260,7 +260,7 @@ function GetUserInfo($ID)
         // Cut the color from the user style and trim any whitespaces to check what type of user it is.
         $Type = trim(substr($Type, strpos($Type, ':')));
         // Check wheather the user is registered user or an administrator by checkhing weather they don't have hexadecimal color styles.
-        if (strpos($Type, 'blue') !== FALSE) {
+        if (strpos($Type, 'deepskyblue') !== FALSE) {
             $User['vps_owner'] = TRUE;
         } elseif (strpos($Type, 'green') !== FALSE) {
            $User['staff'] = 'admin';

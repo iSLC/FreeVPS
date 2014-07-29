@@ -129,5 +129,5 @@
 	</div>
 </div>
 <div class="col-lg-12">
-    <div class="alert alert-warning"><strong>Note!</strong> The script can't tell whether Moderator members own a VPS or not. Therefore the script allways assumes they do.</div>
+    <div class="alert alert-warning"><strong>Note!</strong> The script can't tell whether Moderator members own a VPS or not. Therefore the script always assumes they do.</div>
 </div>

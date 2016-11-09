@@ -21,23 +21,25 @@ g_ManagerID = [1]
 g_OwnerGroup = 2
 # The identifier of the group of users that need double the post count
 g_MultiGroup = 8
-# The list of users that can request for counts
-g_OwnerList = None
-# The list of users where the post count is double
-g_MultiList = None
 # Identifiers of forums/categories to exclude from count
 g_ForumFilter = [
     21, # SPAM/Testing
     25  # Introductions
 ]
-# Keep track of the identifier of the last processed shout message
-g_LastShoutID = None
 # A URL to the root of the forum without the trailing slash
 g_SiteURL = 'https://freevps.us'
 # A URL to use when generating links to users
 g_UserURL = 'https://freevps.us/user-{uid}.html'
 # A URL to use when generating links to posts
 g_PostURL = 'https://freevps.us//thread-{tid}-post-{pid}.html#pid{pid}'
+
+# -----------------------------------------------------------------------------------------------
+# Keep track of the identifier of the last processed shout message
+g_LastShoutID = None
+# The list of users that can request for counts
+g_OwnerList = None
+# The list of users where the post count is double
+g_MultiList = None
 
 # -----------------------------------------------------------------------------------------------
 # Pre-assembled information.
